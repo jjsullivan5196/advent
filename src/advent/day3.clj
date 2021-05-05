@@ -22,6 +22,7 @@
      :spaces grid-spaces}))
 
 (defn coordinate->grid-index
+  "Get position of `x` `y` in the spaces vector."
   [{:as grid :keys [width]} [x y]]
   (-> y (* width) (+ x)))
 
@@ -32,6 +33,7 @@
            (map (fn [step] [(-> run (* step) (mod width))
                             (* fall step)])))))
 (defn slope->path
+  "Make a coordinate path for a slope."
   [{:as grid :keys [width height]} [run fall]]
   (let [ys (range 0 height fall)
         xs (->> (range width)
@@ -40,6 +42,7 @@
     (map vector xs ys)))
 
 (defn path->spaces
+  "Convert path into the sequence of spaces it represents."
   [{:as grid :keys [spaces]} path-coords]
   (->> path-coords
        (map (fn [xy]
