@@ -21,11 +21,6 @@
      :height grid-height
      :spaces grid-spaces}))
 
-(defn blocked?
-  "Is a gridspace blocked."
-  [gs]
-  (= :blocked gs))
-
 (defn coordinate->grid-index
   [{:as grid :keys [width]} [x y]]
   (-> y (* width) (+ x)))
@@ -61,7 +56,7 @@
   (let [grid   (load-grid "day3-data.txt")
         path   (slope->path grid [3 1])
         spaces (path->spaces grid path)
-        hits   (->> spaces (filter blocked?) count)]
+        hits   (->> spaces frequencies :blocked)]
     {:path   (take 5 path)
      :spaces (take 5 spaces)
      :hits   hits})
@@ -76,8 +71,8 @@
                         (map (fn [run-fall]
                                (->> (slope->path grid run-fall)
                                     (path->spaces grid)
-                                    (filter blocked?)
-                                    count))))]
+                                    frequencies
+                                    :blocked))))]
     (reduce * all-hits))
 
   #_=> 4385176320
