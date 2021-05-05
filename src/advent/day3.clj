@@ -30,17 +30,19 @@
   [{:as grid :keys [width]} [x y]]
   (-> y (* width) (+ x)))
 
-(defn slope->path
-  [{:as grid :keys [width height]} [run fall]]
-  (let [total-steps (-> height (/ fall) int)]
-    (->> (range total-steps)
-         (map (fn [step] [(-> run (* step) (mod width))
-                          (* fall step)])))))
 #_(defn slope->path
     [{:as grid :keys [width height]} [run fall]]
-    (let [xs (->> (range 0 width run) (cycle))
-          ys (range 0 height fall)]
-      (map vector xs ys)))
+    (let [total-steps (-> height (/ fall) int)]
+      (->> (range total-steps)
+           (map (fn [step] [(-> run (* step) (mod width))
+                            (* fall step)])))))
+(defn slope->path
+  [{:as grid :keys [width height]} [run fall]]
+  (let [ys (range 0 height fall)
+        xs (->> (range width)
+                (map (fn [n] (-> run (* n) (mod width))))
+                (cycle))]
+    (map vector xs ys)))
 
 (defn path->spaces
   [{:as grid :keys [spaces]} path-coords]
