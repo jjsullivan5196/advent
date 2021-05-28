@@ -1,4 +1,4 @@
-(ns advent.day2
+(ns advent.2021.day2
   (:require [clojure.string :as s]
             [clojure.java.io :as io]))
 
@@ -43,19 +43,19 @@
                                                  split-params)
         #_params                             #_(->> (s/split raw-params #"-" 2)
                                                     (map #(Integer/parseInt %)))]
-    
+
     {:password   password
      :needs-char needs-char
      :params     params}))
 
 #_(defn get-test-data
-  "Convert all passwords from test data into useable form."
-  [file-name]  
-  (->> file-name
-       io/resource
-       io/reader
-       line-seq
-       (mapv deserialize-data)))
+    "Convert all passwords from test data into useable form."
+    [file-name]
+    (->> file-name
+         io/resource
+         io/reader
+         line-seq
+         (mapv deserialize-data)))
 
 (defn get-test-data
   "Convert all passwords from test data into useable form."
@@ -74,7 +74,7 @@
 
   #_=> {:password "cdefg", :needs-char \b, :params [1 3]}
 
-  (get-test-data "day2-data.txt")
+  (get-test-data "data/2021/day2.txt")
 
   #_=> [{:password "kkkkhkkkkkkkkkk", :needs-char \k, :params [1 5]}
         {:password "blkqhtxfgktdkxzkksk", :needs-char \k, :params [5 7]}
@@ -104,7 +104,6 @@
      :valid-positions?  (valid-positions? valid-chars)})
 
   #_=> {:valid-repetition? true, :valid-positions? true}
-  
 
   (let [invalid-chars {:password   "cdefg"
                        :needs-char \b
@@ -115,9 +114,11 @@
 
   #_=> {:valid-repetition? false, :valid-positions? false}
 
-  
+
   ;; solutions
-  (let [all-data          (get-test-data "day2-data.txt")
+
+
+  (let [all-data          (get-test-data "data/2021/day2.txt")
         correct-repeats   (filter valid-repetition? all-data)
         correct-positions (filter valid-positions? all-data)]
 
@@ -125,6 +126,5 @@
      :correct-positions (count correct-positions)})
 
   #_=> {:correct-repeats 519, :correct-positions 708}
-
 
   #_...)

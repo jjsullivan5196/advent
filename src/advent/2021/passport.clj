@@ -1,4 +1,4 @@
-(ns advent.passport
+(ns advent.2021.passport
   (:require [advent.util :as u :refer [->int]]
             [clojure.set :as st]
             [clojure.string :as s]
@@ -9,7 +9,7 @@
 
 (do
   (def digits            (set "0123456789"))
-  (def hex-digits        (st/union (set "abcdefABCDEF")
+  (def hex-digits        (st/union (set "abcdef")
                                    digits))
 
   (spec/def ::birth-year (spec/int-in 1920 (inc 2002)))
@@ -41,26 +41,24 @@
   #_=> [{:advent.passport/eye-color "blu",
          :advent.passport/id [\0 \6 \2 \2 \5 \6 \8 \7 \4],
          :advent.passport/expires 2027,
-         :advent.passport/hair-color [\C \e \3 \8 \e \1],
+         :advent.passport/hair-color [\d \0 \5 \8 \1 \3],
          :advent.passport/birth-year 1988,
          :advent.passport/issued 2018,
-         :advent.passport/height 174}
-
+         :advent.passport/height 173}
         {:advent.passport/eye-color "gry",
          :advent.passport/id [\7 \7 \1 \8 \3 \0 \1 \6 \1],
          :advent.passport/expires 2028,
-         :advent.passport/hair-color [\1 \d \6 \B \a \D],
+         :advent.passport/hair-color [\3 \f \7 \b \a \f],
          :advent.passport/birth-year 1922,
          :advent.passport/issued 2015,
-         :advent.passport/height 172}
-
+         :advent.passport/height 193}
         {:advent.passport/eye-color "grn",
          :advent.passport/id [\8 \4 \1 \8 \7 \0 \4 \8 \4],
          :advent.passport/expires 2025,
-         :advent.passport/hair-color [\0 \a \7 \b \a \2],
+         :advent.passport/hair-color [\2 \a \7 \c \b \4],
          :advent.passport/birth-year 1974,
          :advent.passport/issued 2018,
-         :advent.passport/height 186}]
+         :advent.passport/height 185}]
 
   #_...)
 
@@ -169,7 +167,7 @@
   (->> example-input
        split-records)
 
-  #_=> ("ecl:gry pid:860033327 eyr:2020 hcl:#fffffd byr:1937 iyr:2017 cid:147 hgt:183cm"
+  #_=> ("ecl:gry    pid:860033327 eyr:2020 hcl:#fffffd byr:1937 iyr:2017 cid:147 hgt:183cm"
         "iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884 hcl:#cfa07d byr:1929"
         "hcl:#ae17e1 iyr:2013 eyr:2024 ecl:brn pid:760753108 byr:1931 hgt:179cm"
         "hcl:#cefa07d eyr:2025 pid:166559648 iyr:2011 ecl:brn hgt:59in")
@@ -253,7 +251,7 @@
          :required-fields? false,
          :valid-passport? false}]
 
-  (let [passports (->> (u/fname->lines "day4-data.txt")
+  (let [passports (->> (u/fname->lines "data/2021/day4.txt")
                        split-records
                        (map split-pairs)
                        (map pairs->passport))]

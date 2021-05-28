@@ -1,4 +1,4 @@
-(ns advent.day3
+(ns advent.2021.day3
   (:require [clojure.java.io :as io]))
 
 (defn char->gridspace
@@ -50,7 +50,7 @@
                 (nth spaces idx))))))
 
 (comment
-  (load-grid "day3-data.txt")
+  (load-grid "data/2021/day3.txt")
 
   #_=> {:width 31,
         :height 323,
@@ -68,7 +68,7 @@
         :spaces '(:open :open :open :open :blocked #_...),
         :hits   173}
 
-  (let [grid       (load-grid "day3-data.txt")
+  (let [grid       (load-grid "data/2021/day3.txt")
         slopes     [[1 1] [3 1] [5 1] [7 1] [1 2]]
         all-hits   (->> slopes
                         (map (fn [run-fall]
